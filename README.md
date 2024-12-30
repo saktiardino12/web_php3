@@ -1,1 +1,0 @@
-"# php-daily-journal" 
