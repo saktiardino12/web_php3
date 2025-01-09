@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!empty($row)) {
     //jika ada, simpan variable username pada session
     $_SESSION['username'] = $row['username'];
-    $_SESSION['user_id'] = $row['id'];
 
     //mengalihkan ke halaman admin
     header("location:admin.php");
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	//menutup koneksi database
   $stmt->close();
   $conn->close();
-} 
+} else {
 ?>
 
 <!DOCTYPE html>
@@ -105,3 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ></script>
   </body>
 </html>
+<?php
+}
+?>

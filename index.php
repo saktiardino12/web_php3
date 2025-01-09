@@ -1,5 +1,9 @@
 <?php
 include "koneksi.php"; 
+
+// Tampilkan Gallery
+$gallery = "SELECT * FROM gallery";
+$result = $conn->query($gallery);
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="light">
@@ -10,6 +14,8 @@ include "koneksi.php";
     <link rel="icon" href="fiks.jpeg"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.bootstrap5.css"> -->
   </head>
   <body>
     <!-- nav begin -->
@@ -68,7 +74,7 @@ include "koneksi.php";
 <section id="article" class="text-center p-5">
   <div class="container">
     <h1 class="fw-bold display-4 pb-3">article</h1>
-    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+    <div class="row">
       <?php
       $sql = "SELECT * FROM article ORDER BY tanggal DESC";
       $hasil = $conn->query($sql); 
@@ -76,19 +82,13 @@ include "koneksi.php";
       $no = 1;
       while($row = $hasil->fetch_assoc()){
         ?>
-        <div class="col">
-          <div class="card h-100">
-            <img src="img/<?= $row["gambar"]?>" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><?= $row["judul"]?></h5>
-              <p class="card-text">
-                <?= $row["isi"]?>
-              </p>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAulr-he_FPTWAEfmTEIxLLp649sutQle7vQ&s" class="rounded-circle">
             </div>
-            <div class="card-footer">
-              <small class="text-body-secondary">
-                <?= $row["tanggal"]?>
-              </small>
+            <div class="col-lg-7">
+              <span>Omo Kucrut Bukan DJ Biasa Dunia akting dan musik bagi Omo Kucrut tak ubahnya dua sisi mata uang. Pria yang bernama lengkap Heri Purnomo itu adalah bintang sinetron yang dikenal publik lewat perannya sebagai si Ceking dalam sinetron “Ronaldowati”1. Dalam sinetron yang pertama tayang di TPI (sekarang MNCTV) tahun 2008, Omo Kucrut digambarkan sebagai sosok pemain bola yang dapat berlari secepat kilat. Hidup lelaki yang kini berusia 36 tahun itu memang penuh kejutan, serba tidak terduga1.Omo Kucrut lahir di Jakarta, 8 April 1986. Sewaktu kecil, Omo Kucrut mempunyai cita-cita menjadi seorang insinyur sipil1. Namun seiring berjalannya waktu, ia justru lebih tertarik dalam dunia entertainment.</span>
             </div>
           </div>
         </div>
@@ -101,10 +101,32 @@ include "koneksi.php";
 <!-- article end -->
 
     <!-- gallery begin -->
-    <section id="gallery" class="text-center p-5 bg-primary-subtle">
-      <div class="container">
-        <h1 class="fw-bold display-4 pb-3">Gallery</h1>
-        <div id="carouselExample" class="carousel slide">
+        <h1 class="fw-bold text-center display-4 pb-3">Gallery</h1>
+        <div class="row container">
+
+        <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <div class="col-3 col-md-4 col-lg-4 mb-3">
+                <div class="card border-0 shadow">
+                  <div class="card-body p-1">
+                  <img src="uploads/<?php echo $row['gambar']; ?>" alt="Gambar" class="rounded" width="100% auto">
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
+        <?php endif; ?>
+        </div>
+        <!-- <div class="row">
+          <div class="col-6 col-md-4 col-lg-4">
+            <div class="card">
+              <div class="card-body">
+
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-4"></div>
+        </div> -->
+        <!-- <div id="carouselExample" class="carousel slide">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="img/joni.jpeg" class="d-block w-100" alt="...">
@@ -130,7 +152,7 @@ include "koneksi.php";
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
-        </div>
+        </div> -->
       </div>
     </section>
     <!-- gallery end -->
@@ -311,5 +333,13 @@ include "koneksi.php";
         this.innerHTML = newTheme === "light" ? '<i class="bi bi-moon-fill"></i>' : '<i class="bi bi-brightness-high-fill"></i>';
       });
     </script>
+    <!-- Datatables -->
+     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+     <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+     <!-- <script src="https://cdn.datatables.net/2.2.0/js/dataTables.bootstrap5.js"></script> -->
+     <script>
+        new DataTable('#example');
+     </script>
   </body>
 </html>

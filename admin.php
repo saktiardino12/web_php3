@@ -14,8 +14,7 @@ if (isset($_SESSION['username'])) {
 ?>
 
 <?php
-session_start();
-
+// session_start();
 include "koneksi.php";  
 
 //check jika belum ada user yang login arahkan ke halaman login
@@ -39,14 +38,7 @@ if (!isset($_SESSION['username'])) {
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-    crossorigin="anonymous"
-    <li class="nav-item">
-    <a class="nav-link" href="admin.php?page=dashboard">Dashboard</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="admin.php?page=article">Article</a>
-</li>
-    /> 
+    crossorigin="anonymous">
     <style>  
         html {
             position: relative;
@@ -87,11 +79,15 @@ if (!isset($_SESSION['username'])) {
             <li class="nav-item">
                 <a class="nav-link" href="admin.php?page=article">Article</a>
             </li> 
+            <li class="nav-item">
+                <a class="nav-link" href="admin.php?page=gallery">gallery</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <?= $_SESSION['username']?>
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="admin.php?page=profile">Profil</a></li> 
                     <li><a class="dropdown-item" href="logout.php">Logout</a></li> 
                 </ul>
             </li> 
